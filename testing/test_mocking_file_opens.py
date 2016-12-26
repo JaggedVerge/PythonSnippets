@@ -5,7 +5,7 @@ are covered in this file.
 In order to unit test this type of situation properly we don't want to create any file on disk.
 To do this requires mocking the `open` builtin.
 
-For simple cases we can use unittest.mock.patch along with unittest.mock.mock_open and we get all we need.
+If we need to deal with context managers for simple cases we can use unittest.mock.patch along with unittest.mock.mock_open and we get all we need.
 
 However if we have to iterate over the mocked `open` we have to do more work.
 For example say we have the following code that reads a file line by line
@@ -21,6 +21,8 @@ and creates a list with it. We wish to test something like this:
 There's some extra work that has to be done if iteration over the mocked
 file object is to be supported because this doesn't come as a default.
 Specifically we much define `__iter__` for the `mock_open function.
+
+The test case in this file will show you how you can do that.
 """
 
 from mocking_file_opens import example_function
